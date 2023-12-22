@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# kills Task 4's process.
+# Cannot use kill or killall.
+pkill -f 7-highlander
