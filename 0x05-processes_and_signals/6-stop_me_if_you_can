@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
-# kills Task 4's process.
-# Cannot use kill or killall.
+# kills Task 4's process without using kill or killall
 pkill -f 4-to_infinity_and_beyond
