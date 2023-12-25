@@ -2,6 +2,7 @@
 # prints "Best School" until 9 then i
 i="0"
 
+
 while [ $i -lt 11 ]; do
        	if [ $i -eq 9 ]
 	then
@@ -9,5 +10,5 @@ while [ $i -lt 11 ]; do
 	else
 	    echo "Best Best School"
 	fi
-	i=$((i+1));
+	((i++))
 done
