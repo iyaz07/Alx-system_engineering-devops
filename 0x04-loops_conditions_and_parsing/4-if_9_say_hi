@@ -8,7 +8,7 @@ while [ $i -lt 11 ]; do
 	then
 	    echo "Hi"
 	else
-	    echo "Best Best School"
+	    echo "Best School"
 	fi
 	((i++))
 done
