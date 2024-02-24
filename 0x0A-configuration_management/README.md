@@ -1,0 +1,1 @@
+Learning about configuration management, which is systematicall handling changes to a system in a way that it maintains integrity over time. It is Server configuration management using tools like Puppet, Chef, etc
