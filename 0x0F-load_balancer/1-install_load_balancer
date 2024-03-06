@@ -1,23 +1,33 @@
 #!/usr/bin/env bash
 # Installs and setup haproxy
 
-apt-get install -y software-properties-common
-add-apt-repository -y ppa:vbernat/haproxy-1.8
-apt-get -y update
-apt-get install -y haproxy=1.8.\*
+sudo apt update
+sudo apt install -y haproxy
 
-echo "ENABLED=1" > /etc/default/haproxy
+haproxy_conf_file="/etc/haproxy/haproxy.cfg"
 
-# Listen to web1 and web2 servers                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-echo "
-   listen load_balancer
-   bind *:80
-   mode http
-   balance roundrobin
-   option httpclose
-   option forwardfor
-   server 296939-web-01 35.152.66.57:80 check
-   server 296939-web-02 35.174.211.149:80 check
-" >> /etc/haproxy/haproxy.cfg
+# Configure Load Balancer
 
-sudo service haproxy start
+# Frontend Configuration
+frontend_name="frontend http"
+frontend_bind="bind *:80"
+frontend_mode="mode http"
+frontend_default_backend="default_backend web-backend"
+frontend_config="$frontend_name\n\t$frontend_bind\n\t$frontend_mode\n\t$frontend_default_backend\n"
+
+# Backend Configuration
+backend_name="backend web-backend"
+backend_balance="balance roundrobin"
+backend_server1="server web1 34.148.28.190:80 check"
+backend_server2="server web2 18.207.93.156:80 check"
+backend_config="$backend_name\n\t$backend_balance\n\t$backend_server1\n\t$backend_server2"
+
+# Append configurations to HAProxy configuration file
+sudo sed -i "$ a $frontend_config" $haproxy_conf_file
+sudo sed -i "$ a $backend_config" $haproxy_conf_file
+
+# Display success message
+echo "HAProxy configuration updated successfully."
+
+# Restart HAProxy
+sudo service haproxy restart
