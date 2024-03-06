@@ -2,7 +2,7 @@
 # This script builds on previous scripts
 #
 # Also, to configure a directive so the Nginx server
-# To include in the header a name=value of X-Served_by= hostname
+# To include in the header a name=value of X-Served_By= hostname
 
 sudo apt-get -y update
 sudo apt-get install -y nginx
