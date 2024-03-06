@@ -1,0 +1,1 @@
+This README file contains a Task to learn a little bit about debugging our stack, i.e our web server to see why the ip is not listening on a port -  port 80 which is the http port. Easy, we just have to look at the enabled default file which is like the enabled configuration which is often custom. The sites-available file has the default nginx config.
