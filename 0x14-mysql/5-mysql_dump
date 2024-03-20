@@ -36,4 +36,3 @@ fi
 rm "$dump_file"
 
 echo "MySQL backup completed: $archive_name"
-
