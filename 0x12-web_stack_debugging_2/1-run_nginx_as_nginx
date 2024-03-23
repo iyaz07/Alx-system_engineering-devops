@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 
 # Update Nginx configuration to run as nginx user
-sed -i '1 i\user nginx;' /etc/nginx/nginx.conf
+sed -i "s/#user www-data/user nginx/" /etc/nginx/nginx.conf
 
 # Update Nginx configuration to listen on port 8080
-sudo sed -i "s/80 default_server/8080 default_server/g" /etc/nginx/sites-enabled/default
+sed -i "s/80/8080/g" /etc/nginx/sites-available/default
 
 # Ensure correct permissions on configuration files
 chmod 644 /etc/nginx/nginx.conf
-chmod 644 /etc/nginx/sites-enabled/default
 
 # Stop Apache2 service if running
 pkill apache2
