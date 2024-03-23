@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Fixes a web server to run Nginx as the nginx user listening on port 8080.
 
 # Update Nginx configuration to run as nginx user
 sed -i "s/#user www-data/user nginx/" /etc/nginx/nginx.conf
