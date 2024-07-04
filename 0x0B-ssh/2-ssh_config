@@ -1,0 +1,8 @@
+#SSH Config File
+
+Host server
+	Hostname 54.84.230.181
+	User ubuntu
+	54.84.230.181
+	IdentityFile ~/.ssh/school
+	PasswordAuthentication no
