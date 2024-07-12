@@ -1,10 +1,19 @@
 #!/usr/bin/env bash
-# Install a nginx web server listening on port 80.
-#
-# Such that curl localhost returns "Hello World'.
+# Runs a nginx in the server
 
-apt-get update
-apt-get -y install nginx
-ufw allow 'Nginx HTTP'
-echo "Hello World!" > /var/www/html/index.html
-service nginx start
+sudo apt-get update
+sudo apt-get install -y nginx
+sudo service nginx start
+
+sudo mkdir -p /etc/nginx/html
+
+echo "Hello World!" | sudo tee /etc/nginx/html/index.html
+
+printf %s "server{
+listen 80;
+listen [::]:80 default_server;
+root /etc/nginx/html;
+index index.html;
+}" | sudo tee /etc/nginx/sites-available/default 
+
+sudo service nginx restart

@@ -1,12 +1,25 @@
 #!/usr/bin/env bash
-# This script builds on previous scripts
-#
-# Also, to configure a directive so the Nginx server
-# redirects to another page with 301 Moved Permenently
+# Runs a nginx in the server
 
-sudo apt-get -y update
+sudo apt-get update
 sudo apt-get install -y nginx
-ufw allow 'Nginx HTTP'
-echo "Hello World" | sudo tee file /var/www/html/index.nginx-debian.html
-sudo sed -i '/server_name _;/a \\tlocation /redirect_me {\n\t\trewrite ^/redirect_me/ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;\n\t}' /etc/nginx/sites-available/default
+sudo service nginx start
+
+sudo mkdir -p /etc/nginx/html
+
+echo "Hello World!" | sudo tee /etc/nginx/html/index.html
+
+printf %s "server{
+listen 80 default_server;
+listen [::]:80 default_server;
+root /etc/nginx/html;
+index index.html;
+location /redirect_me {
+  return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+  }
+}" | sudo tee /etc/nginx/sites-available/default
+
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+
+sudo nginx -t
 sudo service nginx restart
