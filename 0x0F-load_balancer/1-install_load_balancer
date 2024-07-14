@@ -18,8 +18,8 @@ frontend_config="$frontend_name\n\t$frontend_bind\n\t$frontend_mode\n\t$frontend
 # Backend Configuration
 backend_name="backend web-backend"
 backend_balance="balance roundrobin"
-backend_server1="server web1 35.153.66.57:80 check"
-backend_server2="server web2 35.174.211.149:80 check"
+backend_server1="server web1 54.82.173.246:80 check"
+backend_server2="server web2 18.234.80.21:80 check"
 backend_config="$backend_name\n\t$backend_balance\n\t$backend_server1\n\t$backend_server2"
 
 # Append configurations to HAProxy configuration file
