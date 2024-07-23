@@ -47,6 +47,6 @@ frontend https
 
 backend web-backend
     balance roundrobin
-    server 296939-web-02 35.153.66.57:80 check
-    server 296939-web-02 35.174.211.149:80 check
+    server 296939-web-01 54.82.173.246:80 check
+    server 296939-web-02 18.234.80.21:80 check
 
