@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+# This Bash script generates a MySQL dump of all databases and creates a compressed tar.gz archive of it.
+
 # Check if the script is run with one argument (the MySQL password)
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <mysql_password>"
@@ -24,6 +27,13 @@ if [ $? -eq 0 ]; then
     # Check if the archive was created successfully
     if [ $? -eq 0 ]; then
         echo "Backup successfully created: $SCRIPT_DIR/$ARCHIVE_NAME"
+        # Verify the gzip compression
+        if file "$SCRIPT_DIR/$ARCHIVE_NAME" | grep -q "gzip compressed data"; then
+            echo "Archive verified: gzip compressed data"
+        else
+            echo "Error: Archive verification failed."
+            exit 1
+        fi
         # Optionally, remove the SQL file after creating the archive
         rm -f "$SCRIPT_DIR/$BACKUP_FILE"
         echo "Temporary SQL file removed."
