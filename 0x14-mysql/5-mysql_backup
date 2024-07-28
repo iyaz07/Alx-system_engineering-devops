@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Check if the script is run with one argument (the MySQL password)
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <mysql_password>"
