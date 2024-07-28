@@ -1,47 +1,9 @@
 #!/usr/bin/env bash
-# This Bash script generates a MySQL dump of all databases and creates a compressed tar.gz archive of it.
+# Create MySQL server backup
 
-# Check if the script is run with one argument (the MySQL password)
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <mysql_password>"
-    exit 1
-fi
-
-MYSQL_PASSWORD=$1
+PASS="$1"
 DATE=$(date +%d-%m-%Y)
-BACKUP_FILE="backup.sql"
-ARCHIVE_NAME="${DATE}.tar.gz"
 
-# Get the directory where the script is located
-SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+mysqldump -uroot -p"$PASS" --opt --all-databases > backup.sql
 
-# Generate MySQL dump
-mysqldump -u root -p"$MYSQL_PASSWORD" --all-databases > "$SCRIPT_DIR/$BACKUP_FILE"
-
-# Check if the dump was successful
-if [ $? -eq 0 ]; then
-    echo "Database dump successful. Creating archive..."
-    tar -czf "$SCRIPT_DIR/$ARCHIVE_NAME" -C "$SCRIPT_DIR" "$BACKUP_FILE"
-    
-    # Check if the archive was created successfully
-    if [ $? -eq 0 ]; then
-        echo "Backup successfully created: $SCRIPT_DIR/$ARCHIVE_NAME"
-        # Verify the gzip compression
-        if file "$SCRIPT_DIR/$ARCHIVE_NAME" | grep -q "gzip compressed data"; then
-            echo "Archive verified: gzip compressed data"
-        else
-            echo "Error: Archive verification failed."
-            exit 1
-        fi
-        # Optionally, remove the SQL file after creating the archive
-        rm -f "$SCRIPT_DIR/$BACKUP_FILE"
-        echo "Temporary SQL file removed."
-    else
-        echo "Error: Failed to create the archive."
-        exit 1
-    fi
-else
-    echo "Error: Failed to create the database dump."
-    exit 1
-fi
-
+tar -cvzf "$DATE".tar.gz backup.sql 
