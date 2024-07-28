@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # This Bash script generates a MySQL dump of all databases and creates a compressed tar.gz archive of it.
 
 # Check if the script is run with one argument (the MySQL password)
