@@ -1,1 +1,1 @@
-The urpose of this project is to learn about Representational Site Transfer Application Programming interface.
+The purrpose of this project is to learn about Representational Site Transfer Application Programming interface.
